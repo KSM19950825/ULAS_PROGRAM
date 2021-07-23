@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+
+<mappers>
+	<mapper resource="/sqls/book_statement.xml"/> <!-- 도서관리 -->
+	<mapper resource="/sqls/user_statement.xml"/> <!-- 회원관리 -->
+	<mapper resource="/sqls/rental_statement.xml"/> <!-- 대출관리 -->
+</mappers>
+
+</configuration>
