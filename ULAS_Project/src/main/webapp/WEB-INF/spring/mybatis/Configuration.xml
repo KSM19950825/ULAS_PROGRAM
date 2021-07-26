@@ -2,6 +2,14 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
+<typeAliases>
+	<typeAlias type="com.las.khj.dto.BookInfo_Dto"  alias="bookInfoDto"/>
+	<typeAlias type="com.las.khj.dto.BookStatus_Dto"  alias="bookStatusDto"/>
+	<typeAlias type="com.las.khj.dto.Member_Dto"  alias="memberDto"/>
+	<typeAlias type="com.las.khj.dto.Otp_Dto"  alias="otpDto"/>
+	<typeAlias type="com.las.khj.dto.Rent_Dto"  alias="rentDto"/>
+	<typeAlias type="com.las.khj.dto.Reservation_Dto"  alias="reservationDto"/>
+</typeAliases>
 
 <mappers>
 	<mapper resource="/sqls/book_statement.xml"/> <!-- 도서관리 -->
