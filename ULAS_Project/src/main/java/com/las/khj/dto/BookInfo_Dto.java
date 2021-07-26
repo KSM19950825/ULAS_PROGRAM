@@ -17,6 +17,8 @@ public class BookInfo_Dto implements Serializable{
 	private String qr;
 	private String img;
 	private String chapter;
+	private int cnt;
+	private String loc;
 	
 	private List<BookStatus_Dto> bookstatus;
 
@@ -100,6 +102,22 @@ public class BookInfo_Dto implements Serializable{
 		this.chapter = chapter;
 	}
 
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
+	public String getLoc() {
+		return loc;
+	}
+
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
+
 	public List<BookStatus_Dto> getBookstatus() {
 		return bookstatus;
 	}
@@ -112,8 +130,7 @@ public class BookInfo_Dto implements Serializable{
 	public String toString() {
 		return "BookInfo_Dto [bookcode=" + bookcode + ", title=" + title + ", author=" + author + ", publcode="
 				+ publcode + ", classcode=" + classcode + ", publishing=" + publishing + ", content=" + content
-				+ ", qr=" + qr + ", img=" + img + ", chapter=" + chapter + ", bookstatus=" + bookstatus + "]";
+				+ ", qr=" + qr + ", img=" + img + ", chapter=" + chapter + ", cnt=" + cnt + ", loc=" + loc
+				+ ", bookstatus=" + bookstatus + "]";
 	}
-	
-	
 }
