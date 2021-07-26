@@ -1,4 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.las.khj.model.dao.IUserDao">
+	<!-- 로그인 LAS-U-001 -->
+	<select id="login" parameterType="java.util.Map" resultType="m">
+		SELECT EMAIL, NAME, ADDRESS, PHONE, AUTH, PENALTY 
+			FROM LASMEMBER l
+			WHERE EMAIL = #{email} AND PASSWORD = #{password} AND DELFLAG = 'N'
+	</select>
+	<!-- 회원가입 LAS-U-002 -->
+	<insert id="regist" parameterType="m">
+		INSERT INTO LASMEMBER(EMAIL, PASSWORD, NAME, ADDRESS, PHONE, DELFLAG, AUTH, PENALTY)
+        	VALUES (#{email}, #{password}, #{name}, #{address}, #{phone}, 'N', 'U', '0')
+	</insert>
+	<!-- 대출 회원 조회 LAS-U-003  -->
+	
+	<!-- 내 정보 수정 LAS-U-005 -->
+	<update id="modifyInfo" parameterType="java.util.Map">
+		UPDATE LASMEMBER SET ADDRESS = #{address}, PHONE = #{phone}
+        	WHERE EMAIL = #{email}
+	</update>
+	<!-- 아이디 찾기 LAS-U-006 -->
+	<select id="findId" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT EMAIL
+			FROM LASMEMBER l
+			WHERE NAME = #{name} AND PHONE = #{phone} AND DELFLAG = 'N'
+	</select>
+	<!-- 비밀번호 찾기 LAS-U-007 -->
+	<select id="findPw" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT EMAIL
+	        FROM LASMEMBER l 
+	        WHERE EMAIL = #{email}
+	</select>
+	<!-- 인증번호 생성 LAS-U-007 -->
+	<insert id="insertOtp" parameterType="java.util.Map">
+		INSERT INTO OTP(EMAIL, OTP) 
+       		VALUES (#{email}, #{otp})
+	</insert>
+	<!-- 인증번호 입력 LAS-U-007 -->
+	<select id="inquireOtp" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT EMAIL
+	        FROM OTP
+	        WHERE EMAIL = #{email} AND OTP = #{otp}
+	</select>
+	<!-- 비밀번호 변경 LAS-U-007 -->
+	<update id="modifyPw" parameterType="java.util.Map">
+		UPDATE LASMEMBER SET PASSWORD = #{password}
+        	WHERE EMAIL = #{email}
+	</update>
+	<!-- 도서 정보 검색 LAS-S-001 -->
+	<select id="searchBook" parameterType="java.util.Map" resultType="s">
+		SELECT BOOKCODE, TITLE, AUTHOR, PUBLISHER, CLASSNAME, IMG 
+			FROM BOOKINFO b
+			JOIN PUBLISH p 
+			ON b.PUBLCODE = p.PUBLCODE
+			JOIN CLASS c 
+			ON b.CLASSCODE = c.CLASSCODE
+			<where>
+				<if test="title != null">
+					AND TITLE LIKE #{title}
+				</if>
+				<if test="author != null">
+					AND AUTHOR LIKE #{author}
+				</if>
+				<if test="publisher != null">
+					AND PUBLISHER LIKE #{publisher}
+				</if>
+				<if test="classname != null">
+					AND CLASSNAME LIKE #{classname}
+				</if>
+				<if test="bookcode != null">
+					AND BOOKCODE = #{bookcode}
+				</if>
+			</where>
+	</select>
 </mapper>
