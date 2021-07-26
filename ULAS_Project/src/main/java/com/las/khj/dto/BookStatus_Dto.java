@@ -10,8 +10,7 @@ public class BookStatus_Dto implements Serializable{
 	private String bookcode;
 	private String reserve;
 	private String statuscode;
-	private String location;
-	
+	private String loc;
 	public int getBookseq() {
 		return bookseq;
 	}
@@ -36,18 +35,15 @@ public class BookStatus_Dto implements Serializable{
 	public void setStatuscode(String statuscode) {
 		this.statuscode = statuscode;
 	}
-	public String getLocation() {
-		return location;
+	public String getLoc() {
+		return loc;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLoc(String loc) {
+		this.loc = loc;
 	}
 	@Override
 	public String toString() {
 		return "BookStatus_Dto [bookseq=" + bookseq + ", bookcode=" + bookcode + ", reserve=" + reserve
-				+ ", statuscode=" + statuscode + ", location=" + location + "]";
+				+ ", statuscode=" + statuscode + ", loc=" + loc + "]";
 	}
-	
-	
-
 }
