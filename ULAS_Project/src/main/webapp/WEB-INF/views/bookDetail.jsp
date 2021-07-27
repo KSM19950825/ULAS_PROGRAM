@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>도서 상세정보</title>
 </head>
 <body>
-<div>
-	<h2><a href="./searchBook.do">도서등록</a></h2>
-</div>
+
 </body>
 </html>
