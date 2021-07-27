@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>도서등록 검색</title>
 </head>
 <body>
-<div>
-	<h2><a href="./searchBook.do">도서등록</a></h2>
-</div>
+<form action="./searchBookList.do" method="get">
+	<input type="text" name="bookName">
+	<input type="submit" value="도서검색">
+</form>
 </body>
 </html>

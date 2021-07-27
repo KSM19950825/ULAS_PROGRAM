@@ -1,4 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.las.khj.model.dao.IBookDao">
+
+<resultMap type="bookInfoDto" id="bookInfoMap">
+	<result column="BOOKCODE" property="bookcode"/>
+	<result column="TITLE" property="title"/>
+	<result column="AUTHOR" property="author"/>
+	<result column="PUBLCODE" property="publcode"/>
+	<result column="CLASSCODE" property="classcode"/>
+	<result column="PUBLISHINg" property="publishing"/>
+	<result column="CONTENT" property="content"/>
+	<result column="QR" property="qr"/>
+	<result column="IMG" property="img"/>
+	<result column="CHAPTER" property="chapter"/>
+	<collection property="bookstatus"  resultMap="bookStatusMap"/>
+	<collection property="publish" resultMap="publishMap"/>
+</resultMap>
+
+<resultMap type="com.las.khj.dto.BookStatus_Dto" id="bookStatusMap">
+	<result column="BOOKCODE" property="bookcode"/>
+	<result column="BOOKSEQ" property="bookseq"/>
+	<result column="LOC" property="loc"/>
+	<result column="RESERVE" property="reserve"/>
+	<result column="STATUSCODE" property="statuscode"/>
+</resultMap>
+
+<resultMap type="com.las.khj.dto.Publish_Dto" id="publishMap">
+	<result column="PUBLCODE" property="publcode"/>
+	<result column="PUBLISHER" property="publisher"/>
+</resultMap>
+
+<!-- 출판사명으로 출판사 코드 조회 -->
+<select id="searchPublish" parameterType="java.lang.String" resultType="java.lang.String">
+	SELECT PUBLCODE 
+		FROM PUBLISH p
+		WHERE PUBLISHER = #{publisher}
+</select>
+
+<!-- 출판사 insert // selectkey로 반환 -->
+<insert id="insertPublish"  parameterType="java.util.Map">
+	<selectKey keyProperty="publcode" resultType="java.lang.String"  order="BEFORE">
+		SELECT 'PUBL' || LPAD(MAX(SUBSTR(PUBLCODE,5))+1,3,0) AS PUBLCODE FROM PUBLISH
+	</selectKey>
+	INSERT INTO PUBLISH (PUBLCODE, PUBLISHER) VALUES(#{publcode}, #{publisher})
+</insert>
+
+<!-- 도서등록 -->
+<insert id="insertBooks" parameterType="bookInfoDto">
+	<selectKey keyProperty="bookcode"  resultType="java.lang.String" order="BEFORE">
+		SELECT 'BOOK' || LPAD(MAX(SUBSTR(BOOKCODE,5))+1,3,0) AS BOOKCODE FROM BOOKINFO
+	</selectKey>
+	INSERT INTO BOOKINFO
+						(BOOKCODE, TITLE, AUTHOR, 
+						PUBLCODE, CLASSCODE, PUBLISHING, 
+						CONTENT, QR, IMG, CHAPTER)
+					VALUES(#{bookcode}, #{title}, #{author}, 
+						#{publcode}, #{classcode}, #{publishing}, 
+						#{content}, 'qr', #{img}, #{chapter})
+</insert>
+
+<!-- 최대 권수 카운트 -->
+<select id="countBooks" parameterType="java.lang.String" resultType="java.lang.Integer">
+	SELECT COUNT(*)
+		FROM BOOKSTATUS b 
+		WHERE BOOKCODE = #{bookcode}
+</select>
+
+<!-- 위치입력 -->
+<!-- Ajax로 작성 위치를 입력하고 저장을 누르면 버튼이 사라지도록 함 -->
+<insert id="insertLocation" parameterType="bookInfoDto">
+	<selectKey keyProperty="loc" resultType="java.lang.String" order="BEFORE">
+		SELECT #{loc}||(NVL(MAX(SUBSTR(LOC,LENGTH(LOC))),0)+1) LOC FROM BOOKSTATUS 
+			WHERE BOOKCODE = #{bookcode}
+	</selectKey>
+	INSERT INTO BOOKSTATUS (BOOKSEQ, BOOKCODE, RESERVE, STATUSCODE, LOC) 
+		VALUES(BOOKSTATUSSEQ.NEXTVAL, #{bookcode}, 'N', 'S001', #{loc})
+</insert>
+
+<select id="bookList"  resultMap="bookInfoMap">
+	SELECT b.BOOKCODE , b.TITLE , b.AUTHOR , p.PUBLISHER  
+		FROM BOOKINFO b JOIN PUBLISH p ON  b.PUBLCODE = p.PUBLCODE
+		ORDER BY BOOKCODE ASC
+</select>
+
+<select id="detailBook" parameterType="java.lang.String" resultMap="bookInfoMap" >
+	<![CDATA[
+		SELECT b.BOOKCODE, TITLE , AUTHOR , PUBLISHER AS PUBLCODE , CLASSNAME AS CLASSCODE , PUBLISHING ,  CONTENT, QR , IMG 
+		,b2.BOOKSEQ ,  
+		   CASE 
+		      WHEN (START_DATE+7 - SYSDATE)>0 AND STATUS = '정상' THEN '대출중' 
+		      WHEN (START_DATE+7 - SYSDATE)<0 AND STATUS = '정상' THEN '대출중(연체)'
+		      WHEN START_DATE IS NULL AND STATUS = '정상'  THEN '대출가능'
+		      ELSE '대출불가' END AS STATUSCODE , LOC
+				FROM BOOKINFO b LEFT JOIN BOOKSTATUS b2 
+				ON b.BOOKCODE = b2.BOOKCODE 
+				LEFT JOIN BOOKSTATUSCODE b3  
+				ON b2.STATUSCODE =b3.STATUSCODE
+				LEFT JOIN RENT r 
+				ON b2.BOOKSEQ  =r.BOOKSEQ 
+				JOIN PUBLISH p 
+				ON b.PUBLCODE=p.PUBLCODE 
+				JOIN CLASS c 
+				ON b.CLASSCODE =c.CLASSCODE 
+				WHERE b.BOOKCODE =#{bookcode}
+	]]>
+</select>
 </mapper>
