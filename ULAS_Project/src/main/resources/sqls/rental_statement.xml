@@ -2,5 +2,109 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.las.khj.model.dao.IRentalDao">
 
+<!-- 대출INPUT: EMAIL, BOOKSEQ = BOOKSEQ  -->
+	<insert id="rentBook" parameterType="java.util.Map" >
+		INSERT INTO RENT (SEQ, EMAIL, BOOKSEQ , START_DATE) 
+		VALUES (RENTSEQ.NEXTVAL, #{email}, #{bookseq}, SYSDATE)	
+	</insert>
+	
+<!-- 반납 -->
+	<update id="returnBook" parameterType="java.util.Map">
+		UPDATE RENT SET RETURN_DATE = SYSDATE WHERE SEQ=#{seq} AND EMAIL =#{email}
+	</update>
+
+
+
+<!-- 예약 신청  reservation table insert fp-->
+	<insert id="reserveBookInsert" parameterType="java.util.Map" >
+		INSERT INTO RESERVATION (SEQ, EMAIL,BOOKSEQ ,STEP) 
+		VALUES(RESERVATIONSEQ.NEXTVAL, #{email}, #{bookseq}, 
+				(SELECT COUNT(STEP)+1 
+				FROM BOOKSTATUS b JOIN RESERVATION r
+				ON b.BOOKSEQ =r.BOOKSEQ 
+				WHERE b.BOOKSEQ =#{bookseq}
+				AND b.STATUSCODE ='S001') 
+			   )
+	</insert>
+<!-- 예약 신청 bookstatus update-->
+	<update id="reserveBookUpdate" parameterType="java.util.Map">
+	UPDATE BOOKSTATUS SET RESERVE ='Y' WHERE BOOKSEQ =#{bookseq} AND STATUSCODE ='S001'
+	</update>
+
+
+
+<!-- 예약 취소  DELETE/UPDATE 트랜잭션  (삭제& 다음 예약자 순위변경)-->
+	<delete id="cancleReserveDelete" parameterType="java.lang.Integer" >
+		DELETE FROM RESERVATION WHERE SEQ = #{seq}
+	</delete>
+	<update id="cancleReserveUpdate" parameterType="java.lang.Integer" >
+		UPDATE RESERVATION SET STEP = STEP-1 WHERE SEQ=#{seq}
+	</update>
+	   
+	   
+<!-- 예약현황 -->
+	<select id="myReservation" parameterType="java.lang.String" resultType="reservationDto">
+		SELECT  SEQ, TITLE , STEP, r.BOOKSEQ
+		FROM RESERVATION r  JOIN BOOKSTATUS b2 
+		ON r.BOOKSEQ =b2.BOOKSEQ 
+		JOIN BOOKINFO b 
+		ON b.BOOKCODE =b2.BOOKCODE 
+		WHERE r.EMAIL = #{email}
+	</select>	   
+
+<!-- 대출현황 -->
+	<select id="myRent" parameterType="java.lang.String" resultType="rentDto">
+		SELECT  seq, start_date, return_date, title
+        FROM RENT r  JOIN BOOKSTATUS b2 
+        ON r.BOOKSEQ =b2.BOOKSEQ 
+        JOIN BOOKINFO b 
+        ON b.BOOKCODE =b2.BOOKCODE 
+        WHERE r.EMAIL = #{email}
+	</select>
+
+
+
+
+
+<!-- 패널티:연체 된 기간만큼 대출 불가 패널티 적용  -->
+	<update id="penaltyUpdate" parameterType="java.lang.String">
+		UPDATE  LASMEMBER  
+		SET PENALTY = (SELECT ROUND(START_DATE+7-SYSDATE)FROM RENT r )
+		WHERE LMEMBER.EMAIL =#{email}
+	</update>
+
+
+<!-- 반납 예정일 메일링  String-->
+	<select id="returnInfoEmail" resultType="java.lang.String"> 
+		SELECT EMAIL
+		FROM RENT
+		WHERE (START_DATE+7)-SYSDATE=1
+	</select>
+
+<!-- 연체 시 메일링 -->
+	<select id="penaltyEmail" resultType="java.lang.String">
+	<![CDATA[SELECT  EMAIL 
+		FROM RENT
+		WHERE (START_DATE+7)-SYSDATE<0]]> 
+	</select>
+
+<!-- 예약자 대출일 메일링	 -->
+	<select id="reserveEmail"  resultType="java.lang.String">
+	<![CDATA[SELECT r.EMAIL
+			FROM BOOKSTATUS b JOIN RENT r 
+			ON b.BOOKSEQ =  r.BOOKSEQ 
+			WHERE r.RETURN_DATE <= SYSDATE 
+			AND b.RESERVE ='Y']]>
+
+	</select>
+
+
+
+      
+	
+
+
+
+
 
 </mapper>
