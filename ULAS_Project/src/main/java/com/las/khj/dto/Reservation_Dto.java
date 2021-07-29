@@ -1,32 +1,30 @@
 package com.las.khj.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Reservation_Dto implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7900758915589122645L;
 	
 	private int seq      ;
-	private String email    ;
-	private String bookcode ;
+	private String bookseq ;
 	private int step     ;
+	private String title;
 	public Reservation_Dto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Reservation_Dto(int seq, String email, String bookcode, int step) {
+	public Reservation_Dto(int seq, String bookseq, int step, String title) {
 		super();
 		this.seq = seq;
-		this.email = email;
-		this.bookcode = bookcode;
+		this.bookseq = bookseq;
 		this.step = step;
+		this.title = title;
 	}
 	@Override
 	public String toString() {
-		return "Reservation_Dto [seq=" + seq + ", email=" + email + ", bookcode=" + bookcode + ", step=" + step + "]";
+		return "Reservation_Dto [seq=" + seq + ", bookseq=" + bookseq + ", step=" + step + ", title=" + title + "]";
 	}
 	public int getSeq() {
 		return seq;
@@ -34,17 +32,11 @@ public class Reservation_Dto implements Serializable {
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
-	public String getEmail() {
-		return email;
+	public String getBookseq() {
+		return bookseq;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getBookcode() {
-		return bookcode;
-	}
-	public void setBookcode(String bookcode) {
-		this.bookcode = bookcode;
+	public void setBookseq(String bookseq) {
+		this.bookseq = bookseq;
 	}
 	public int getStep() {
 		return step;
@@ -52,6 +44,14 @@ public class Reservation_Dto implements Serializable {
 	public void setStep(int step) {
 		this.step = step;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	
 	
 	
 	

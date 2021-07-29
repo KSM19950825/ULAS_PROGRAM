@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.las.khj.dto.BookInfo_Dto;
+import com.las.khj.dto.Member_Dto;
 import com.las.khj.model.service.IBookService;
 
 @Controller
@@ -28,8 +31,14 @@ public class BookController {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping(value = "/main.do" , method = RequestMethod.GET)
-	public String main() {
+	public String main(HttpSession session) {
 		log.info("BookController 메인페이지 이동");
+		//임시세션처리
+		Member_Dto sessionUser = new Member_Dto();
+		sessionUser.setEmail("ksm@gmail.com");
+		sessionUser.setAuth("U");
+		sessionUser.setName("정승호");
+		session.setAttribute("sessionUser", sessionUser);
 		return "main";
 	}
 	
