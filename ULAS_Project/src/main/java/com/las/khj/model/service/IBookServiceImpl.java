@@ -40,9 +40,11 @@ public class IBookServiceImpl implements IBookService {
 		return bookDao.bookList();
 	}
 
-//	@Override
-//	public BookInfo_Dto detailBook(String bookcode) {
-//		log.info("IBookServiceImpl 등록된 도서 상세조회 : {}", bookcode);
-//		return bookDao.detailBook(bookcode);
-//	}
+	@Override
+	public BookInfo_Dto detailInfo(String bookcode) {
+		log.info("IBookServiceImpl 등록된 도서 상세조회 : {}", bookcode);
+		return  bookDao.detailInfo(bookcode);
+	}
+	
+
 }

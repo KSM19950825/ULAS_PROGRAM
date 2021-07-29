@@ -24,13 +24,7 @@ public class BookInfo_Dto implements Serializable{
 	
 	private Publish_Dto publish;
 
-	public Publish_Dto getPublish() {
-		return publish;
-	}
-
-	public void setPublish(Publish_Dto publish) {
-		this.publish = publish;
-	}
+	private Class_Dto genre;
 
 	public String getBookcode() {
 		return bookcode;
@@ -136,11 +130,29 @@ public class BookInfo_Dto implements Serializable{
 		this.bookstatus = bookstatus;
 	}
 
+	public Publish_Dto getPublish() {
+		return publish;
+	}
+
+	public void setPublish(Publish_Dto publish) {
+		this.publish = publish;
+	}
+
+	public Class_Dto getGenre() {
+		return genre;
+	}
+
+	public void setGenre(Class_Dto genre) {
+		this.genre = genre;
+	}
+
 	@Override
 	public String toString() {
 		return "BookInfo_Dto [bookcode=" + bookcode + ", title=" + title + ", author=" + author + ", publcode="
 				+ publcode + ", classcode=" + classcode + ", publishing=" + publishing + ", content=" + content
 				+ ", qr=" + qr + ", img=" + img + ", chapter=" + chapter + ", cnt=" + cnt + ", loc=" + loc
-				+ ", bookstatus=" + bookstatus + ", publish=" + publish + "]";
+				+ ", bookstatus=" + bookstatus + ", publish=" + publish + ", genre=" + genre + "]";
 	}
+	
+	
 }

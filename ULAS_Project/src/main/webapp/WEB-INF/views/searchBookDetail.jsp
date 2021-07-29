@@ -78,7 +78,7 @@ li{
 				</li>
 				<li>
 					목차<br>
-					<textarea name="chapter" rows="10" cols="500">${searchDetail.chapter}</textarea>
+					<textarea name="chapter" rows="10" cols="100">${searchDetail.chapter}</textarea>
 				</li>
 			</ul>
 		</div>

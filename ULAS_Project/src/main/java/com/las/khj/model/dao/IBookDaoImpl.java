@@ -22,16 +22,6 @@ public class IBookDaoImpl implements IBookDao {
 	@Override
 	public boolean insertBooks(BookInfo_Dto bookDto) {
 		log.info("IBookDaoImpl 도서등록 : {}", bookDto);
-		
-		System.out.println(bookDto.getTitle());
-		System.out.println(bookDto.getAuthor());
-		System.out.println(bookDto.getPublcode());
-		System.out.println(bookDto.getClasscode());
-		System.out.println(bookDto.getPublishing());
-		System.out.println(bookDto.getContent());
-		System.out.println(bookDto.getChapter());
-		System.out.println(bookDto.getImg());
-		
 		int book = sqlsession.insert(NS+"insertBooks", bookDto);
 		return (book>0)?true:false;
 	}
@@ -60,12 +50,14 @@ public class IBookDaoImpl implements IBookDao {
 		return sqlsession.selectList(NS+"bookList");
 	}
 
-//	@Override
-//	public BookInfo_Dto detailBook(String bookcode) {
-//		log.info("IBookDaoImple 도서 상세정보 조회 : {}", bookcode);
-//		BookInfo_Dto bookDto = sqlsession.selectOne(NS+"detailBook", bookcode);
-//		return bookDto;
-//	}
+	@Override
+	public BookInfo_Dto detailInfo(String bookcode) {
+		log.info("IBookDaoImple 도서 상세정보 조회 : {}", bookcode);
+		BookInfo_Dto bookDto = sqlsession.selectOne(NS+"detailInfo", bookcode);
+		return bookDto;
+	}
+	
+
 
 
 }

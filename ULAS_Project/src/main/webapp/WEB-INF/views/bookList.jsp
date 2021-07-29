@@ -9,9 +9,20 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function chk() {
+		var book = document.getElementById("bookcode").value;
+		console.log(book);
+	}
+</script>
+<style type="text/css">
+#table{
+	width: 1050px;
+}
+</style>
 </head>
 <body>
-	<table class="table table-hover">
+	<table class="table table-hover" id="table">
 		<tr>
 			<th>NO.</th>
 			<th>도서코드</th>
@@ -22,12 +33,13 @@
 <c:forEach var="list" items="${listBook}" varStatus="vs">
 		<tr>
 			<td>${vs.count}</td>
-			<td>${list.bookcode}</td>
-			<td><a href="./bookDetail.do">${list.title}</a></td>
+			<td><a href="./bookDetail.do" onclick="chk()" id="bookcode">${list.bookcode}</a></td>
+			<td>${list.title}</td>
 			<td>${list.author}</td>
 			<td>${list.publish.publisher}</td>
 		</tr>
 </c:forEach>
 	</table>
+	<input type="button" value="돌아가기" onclick="javascript:history.back(-1)">
 </body>
 </html>

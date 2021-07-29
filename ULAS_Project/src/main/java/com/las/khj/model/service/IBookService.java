@@ -10,5 +10,6 @@ public interface IBookService {
 	
 	public List<BookInfo_Dto> bookList();
 	
-//	public BookInfo_Dto detailBook(String bookcode);
+	public BookInfo_Dto detailInfo(String bookcode);
+	
 }

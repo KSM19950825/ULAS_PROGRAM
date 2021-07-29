@@ -63,11 +63,10 @@ public class BookController {
 				System.out.printf("%s / %s \n", e.text(), "https://search.daum.net/search"+e.attr("href"));
 			
 				dto.setTitle(e.text());
-				//"https://search.daum.net/search"
 				dto.setContent(e.attr("href"));
 				bookDtoList.add(dto);
 				
-				if(cnt++ ==4) {
+				if(cnt++ ==2) {
 					break;
 				}
 			}
@@ -80,7 +79,6 @@ public class BookController {
 	
 	@RequestMapping(value = "/searchBookDetail.do" , method = RequestMethod.POST)
 	public String searchBookDetail(String url , Model model) {
-		System.out.println("----------https://search.daum.net/search"+url);
 		BookInfo_Dto bookDto = new BookInfo_Dto();
 		log.info("BookController 크롤링된 리스트 중 선택한 도서정보 : {}", bookDto);
 		String detailUrl = "https://search.daum.net/search"+url;
@@ -88,14 +86,6 @@ public class BookController {
 			Document detail = Jsoup.connect(detailUrl).get(); // 리스트에서 크롤링된 주소를 다시 크롤링
 			Elements elements = detail.select(".tab_body").select("div"); // 가져올 정보의 공통 요소를 선택
 			Element e = elements.get(0); // 선택한 공통 요소들을 요소로 나누고 첫 번째 요소를 가져옴
-			System.out.println("★★"+e.select(".thumb").select("img").attr("src")); // 도서이미지
-			System.out.println("★★"+e.select(".wrap_cont").select("strong.tit_book").text()); // 도서명
-			System.out.println("★★"+e.select(".wrap_cont").select("dd.cont").select("a").get(0).text()); // 저자
-			System.out.println("★★"+e.select(".wrap_cont").select("dd.cont").get(1).select("a").text()); // 출판사
-			String datePrint =e.select(".wrap_cont").select("dd.cont").get(1).text();
-			System.out.println("★★"+datePrint.substring(datePrint.indexOf("|")+1)); // 발행일
-			System.out.println("★★"+e.select(".info_section").select("p.desc").get(0).text()); // 책소개
-			System.out.println("★★"+e.select(".info_section").select("p.desc").get(2).text()); // 목차
 			
 			// 선택한 요소를 Dto에 담아줌
 			bookDto.setImg(e.select(".thumb").select("img").attr("src")); // 도서이미지
@@ -107,6 +97,14 @@ public class BookController {
 			bookDto.setContent(e.select(".info_section").select("p.desc").get(0).text()); // 책소개
 			bookDto.setChapter(e.select(".info_section").select("p.desc").get(2).html().replaceAll("<br>", "\n")); // 목차
 			
+			log.info("이미지 : {}", bookDto.getImg());
+			log.info("도서명 : {}", bookDto.getTitle());
+			log.info("저자 : {}", bookDto.getAuthor());
+			log.info("출판사 : {}", bookDto.getPublcode());
+			log.info("발행일 : {}", bookDto.getPublishing());
+			log.info("도서소개 : {}", bookDto.getContent());
+			log.info("목차 : {}", bookDto.getChapter());
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -114,25 +112,41 @@ public class BookController {
 		return "searchBookDetail";
 	}
 	
-	@RequestMapping(value = "/insertBook.do" , method = RequestMethod.POST)
-	public String insertBook(BookInfo_Dto insertDto, Model model) {
-		boolean isc = bookService.insertBooks(insertDto);
-		System.out.println(insertDto);
-		System.out.println(isc);
-		
-		log.info("BookController 등록된 도서 전체리스트 조회");
+	@RequestMapping(value = "/bookList.do" , method = RequestMethod.GET)
+	public String bookList(Model model) {
 		List<BookInfo_Dto> listBook =  bookService.bookList();
-		System.out.println(listBook);
+		log.info("BookController 등록된 도서 전체리스트 조회", listBook);
 		model.addAttribute("listBook", listBook);
 		
 		return "bookList";
 	}
 	
-//	@RequestMapping(value = "/bookDetail.do" , method = RequestMethod.GET)
-//	public String bookDetail() {
-//		
-//		return "bookDetail";
-//	}
+	@RequestMapping(value = "/insertBook.do" , method = RequestMethod.POST)
+	public String insertBook(BookInfo_Dto insertDto, Model model) {
+		log.info("BookController 등록되는 도서정보 : {}", insertDto);
+		boolean isc = bookService.insertBooks(insertDto);
+		System.out.println(isc);
+		
+		if(isc) {
+			return "redirect:/bookList.do";
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "/bookDetail.do" , method = RequestMethod.GET)
+	public String bookDetailInfo(String bookcode, Model model) {
+		System.out.println(bookcode);
+		log.info("BookController 젼체리스트에서 선택된 bookcode : {}");
+		List<BookInfo_Dto> infoList=  new ArrayList<BookInfo_Dto>();
+		BookInfo_Dto infoDto = new BookInfo_Dto();
+		
+		
+		
+		
+		log.info("BookController 등록된 도서의 상세정보(같은 bookcode의 도서 리스트) : {}");
+		
+		return "bookDetail";
+	}
 
 	
 }
