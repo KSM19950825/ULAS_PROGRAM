@@ -14,5 +14,6 @@ public interface IBookDao {
 	
 	public List<BookInfo_Dto> bookList(); // 등록된 도서 전체리스트
 	
-//	public BookInfo_Dto detailBook(String bookcode); // DB에 저장된 도서 상세조회
+	public BookInfo_Dto detailInfo(String bookcode); // DB에 저장된 도서 상세조회(도서 1권의 정보)
+	
 }
