@@ -76,14 +76,14 @@ public class RentalContoller {
 		service.reserveBook(map);
 		return "reserveBook";
 	}
-	// 예약 취소 tx           canseleReserve.do
+	// 예약 취소 tx           cancleReserve.do
 	// input hidden 으로 reservation테이블의 seq를 가져와서 check해야함
-	@RequestMapping(value = "canseleReserve.do", method = RequestMethod.POST)
-	public String canseleReserve(@RequestParam int seq ,Model model) {
-		log.info("canseleReserve 예약 취소");
+	@RequestMapping(value = "cancleReserve.do", method = RequestMethod.POST)
+	public String cancleReserve(@RequestParam int seq ,Model model) {
+		log.info("cancleReserve 예약 취소");
 		
 		service.cancleReserve(seq);
-		return "canseleReserve";
+		return "cancleReserve";
 		
 	}
 	
