@@ -127,15 +127,15 @@
 
 }
 .wrapper{
-	min-height:600px; 
-	vertical-align: middle;
-	margin-top: 75px;	
+	min-height:675px; 
 	
 }	
+
 
 .body-wrap{
 	max-width: 1300px;
 	margin: auto;
+	padding-top: 80px;
 }
 
 .service01{
@@ -204,7 +204,7 @@
 .footer-wrap {
 	background-color: #ebeff2;
 	border-top:1px solid #ced2da;
-	position:absolute;
+	/* position:absolute; */
 	width: 100%;
 	left:0;
 	bottom:0;
