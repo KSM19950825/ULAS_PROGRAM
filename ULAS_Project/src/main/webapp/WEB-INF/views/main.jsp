@@ -10,6 +10,7 @@
 <div>
 	<h2><a href="./searchBook.do">도서등록</a></h2>
 	<h2><a href="./bookList.do">등록된 도서리스트</a></h2>
+	<h2><a href="./loginForm.do">회원기능</a></h2>
 </div>
 </body>
 </html>
