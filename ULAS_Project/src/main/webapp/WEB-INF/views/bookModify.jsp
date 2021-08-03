@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>도서 상세정보</title>
+<title>도서수정</title>
 <style type="text/css">
 li{
 	list-style: none;
@@ -15,9 +15,47 @@ li{
 	display: flex;
 }
 </style>
+<script type="text/javascript">
+	function chkStatus() {
+		
+	}
+
+</script>
 </head>
 <body>
 <section>
+<fieldset>
+	<legend>도서상태 정보 수정</legend>
+	<form action="./modifyStatus.do" onsubmit="chkStatus()">
+		<table>
+			<tr>
+				<th>도서고유번호</th>
+				<th>BookCode</th>
+				<th>도서명</th>		
+				<th>도서상태</th> 
+				<th>위치</th>
+			</tr>
+			<c:forEach var="m" items="${modify}">
+				<tr>
+					<td>${m.bookseq}</td>
+					<td>${m.bookcode}</td>
+					<td></td>
+					<td>
+						<select name="classcode">
+							<option value="S001">정상</option>
+							<option value="S002">훼손</option>
+							<option value="S003">폐기</option>
+						</select>
+					</td>
+					<td><input type="text" name="loc"></td>
+					<td><input type="submit" value="변경"></td>
+				</tr>
+			</c:forEach>
+		</table>
+		
+	</form>
+</fieldset>
+<!-- 같은 BOOKCODE의 리스트를 위로 옮기고 거기서 바꾸는 건가? -->
 <div id="container">
 	<div id="bookImg">
 		<img alt="도서이미지" src="${detailBook.img}">
@@ -40,10 +78,10 @@ li{
 	<ul>
 		<li>
 			책소개<br>
-			${detailBook.content}
+			
 		<li>
 			목차<br>
-			${detailBook.chapter}
+			
 		</li>
 	</ul>
 </div>
@@ -57,21 +95,19 @@ li{
 			<th>도서상태</th>
 			<th>위치</th>
 		</tr>
-		<c:forEach var="bookStatusList" items="${detailBook.bookstatus}" varStatus="vs">
+		<c:forEach var="bookStatusList" items="${modifyBook}" varStatus="vs">
 		<tr>
-			<td>${vs.count}</td>
-			<td>${bookStatusList.bookcode}</td>
-			<td>${detailBook.title}</td>
-			<td>${bookStatusList.statuscode}</td>
-			<td>${detailBook.status}</td>
-			<td>${bookStatusList.loc}</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
 		</tr>
 		</c:forEach>
 		<tr>
 			<td>
-				<a href="./bookModify.do" >
-					<input type="button" value="도서수정">
-				</a>
+				<input type="button" value="수정완료"  onclick="checkBook()">
 			</td>
 		</tr>
 	</table>	

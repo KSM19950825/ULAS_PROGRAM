@@ -1,6 +1,7 @@
 package com.las.khj.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,7 @@ import com.las.khj.dto.BookInfo_Dto;
 import com.las.khj.model.dao.IBookDao;
 
 @Service
-public class IBookServiceImpl implements IBookService {
+public class BookServiceImpl implements IBookService {
 
 	@Autowired
 	private IBookDao bookDao;
@@ -46,5 +47,15 @@ public class IBookServiceImpl implements IBookService {
 		return  bookDao.detailInfo(bookcode);
 	}
 	
+	@Override
+	public BookInfo_Dto searchPublish(String publisher) {
+		log.info("IBookDaoImple 출판사 조회 : {}", publisher);
+		return bookDao.searchPublish(publisher);
+	}
 
+	@Override
+	public boolean insertPublish(Map<String, Object> publMap) {
+		log.info("IBookDaoImple 출판사 등록 : {}", publMap);
+		return bookDao.insertPublish(publMap);
+	}
 }

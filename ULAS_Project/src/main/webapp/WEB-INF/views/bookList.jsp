@@ -33,7 +33,7 @@
 <c:forEach var="list" items="${listBook}" varStatus="vs">
 		<tr>
 			<td>${vs.count}</td>
-			<td><a href="./bookDetail.do" onclick="chk()" id="bookcode">${list.bookcode}</a></td>
+			<td><a href="./bookDetail.do?bookcode=${list.bookcode}"  id="bookcode">${list.bookcode}</a></td>
 			<td>${list.title}</td>
 			<td>${list.author}</td>
 			<td>${list.publish.publisher}</td>

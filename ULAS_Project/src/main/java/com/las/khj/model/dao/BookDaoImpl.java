@@ -1,6 +1,7 @@
 package com.las.khj.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.las.khj.dto.BookInfo_Dto;
 
 @Repository
-public class IBookDaoImpl implements IBookDao {
+public class BookDaoImpl implements IBookDao {
 	
 	@Autowired
 	private SqlSessionTemplate sqlsession;
@@ -57,7 +58,17 @@ public class IBookDaoImpl implements IBookDao {
 		return bookDto;
 	}
 	
+	@Override
+	public BookInfo_Dto searchPublish(String publisher) {
+		log.info("IBookDaoImple 출판사 조회 : {}", publisher);
+		return sqlsession.selectOne(NS+"searchPublish", publisher);
+	}
 
-
+	@Override
+	public boolean insertPublish(Map<String, Object> publMap) {
+		log.info("IBookDaoImple 출판사 등록 : {}", publMap);
+		int p = sqlsession.insert(NS+"insertPublish", publMap);
+		return (p>0)?true:false;
+	}
 
 }

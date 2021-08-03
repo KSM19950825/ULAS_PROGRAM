@@ -21,20 +21,20 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.las.khj">
-		<level value="INFO" />
+		<level value="TRACE" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="INFO" />
+		<level value="TRACE" />
 	</logger>
 	
 	<logger name="org.springframework.beans">
-		<level value="INFO" />
+		<level value="TRACE" />
 	</logger>
 	
 	<logger name="org.springframework.context">
-		<level value="INFO" />
+		<level value="TRACE" />
 	</logger>
 
 	<logger name="org.springframework.web">

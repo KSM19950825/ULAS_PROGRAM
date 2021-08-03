@@ -53,7 +53,7 @@
 							<a class="nav-link" href="#">도서 상세 검색</a>
 						</li>
 						<li class="nav-item">
-						<a class="nav-link" href="#">도서 등록</a>
+						<a class="nav-link" href="./searchBook.do">도서 등록</a>
 						</li>
 						<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">나만의 도서관</a>
