@@ -11,7 +11,7 @@
 
 	<properties>
 		<java-version>11</java-version>
-		<org.springframework-version>4.3.25.RELEASE</org.springframework-version>
+		<org.springframework-version>4.3.30.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.9.6</org.aspectj-version>
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
@@ -209,6 +209,19 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- 이메일 인증 및 발송 관련 라이브러리 -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>4.3.30.RELEASE</version>
+			</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>ULAS_Project</finalName>

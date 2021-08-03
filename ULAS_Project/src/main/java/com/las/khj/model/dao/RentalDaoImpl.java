@@ -65,17 +65,18 @@ public class RentalDaoImpl implements IRentalDao {
 	}
 	//	반납 예정일 메일링
 	@Override
-	public List<Rent_Dto> returnInfoEmail() {
+	public List<String> returnInfoEmail() {
+		System.out.println();
 		return sqlSession.selectList(NS+"returnInfoEmail");
 	}
 	//	연체 시 메일링
 	@Override
-	public List<Rent_Dto> penaltyEmail() {
+	public List<String> penaltyEmail() {
 		return sqlSession.selectList(NS+"penaltyEmail");
 	}
 	//	예약자 대출일 메일링
 	@Override
-	public List<Rent_Dto> reserveEmail() {
+	public List<String> reserveEmail() {
 		return sqlSession.selectList(NS+"reserveEmail");
 	}
 	

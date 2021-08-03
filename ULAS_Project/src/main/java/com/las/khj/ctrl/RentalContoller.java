@@ -4,11 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.las.khj.dto.Member_Dto;
 import com.las.khj.dto.Rent_Dto;
 import com.las.khj.dto.Reservation_Dto;
+import com.las.khj.mail.AutoMail;
 import com.las.khj.model.service.IRentalService;
 
 
@@ -27,6 +32,9 @@ public class RentalContoller {
 	
 	@Autowired
 	private IRentalService service;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
@@ -117,36 +125,59 @@ public class RentalContoller {
 		
 	}
 	
+//	패널티                penaltyUpdate.do --cron으로 주기적으로 업데이트
 	
 	
 	//	반납 예정일 메일링       returnInfoEmail.do
-	@RequestMapping(value = "/returnInfo.do" ,method=RequestMethod.GET)
-	public String returnInfoEmail(Model model) {
-		log.info("returnInfoEmail 반납 예정일 메일링");
-		List<Rent_Dto> lists = service.returnInfoEmail();
-		System.out.println(lists);
-		model.addAttribute("lists",lists);
-		return "returnInfoEmail";
-	}
+//	@RequestMapping(value = "/returnInfo.do" ,method=RequestMethod.GET)
+//	public String returnInfoEmail(Model model) {
+//		log.info("returnInfoEmail 반납 예정일 메일링");
+//		List<Rent_Dto> lists = service.returnInfoEmail();
+//		System.out.println(lists);
+//		model.addAttribute("lists",lists);
+//		return "returnInfoEmail";
+//	}
+	
 	//	연체 시 메일링          penaltyEmail.do
-	@RequestMapping(value = "/penaltyEmail.do" ,method=RequestMethod.GET)
-	public String penaltyEmail(Model model) {
-		log.info("penaltyEmail 연체 시 메일링");
-		List<Rent_Dto> lists = service.penaltyEmail();
-		System.out.println(lists);
-		model.addAttribute("lists",lists);
-		return "penaltyEmail";
-	}
+//	@RequestMapping(value = "/penaltyEmail.do" ,method=RequestMethod.GET)
+//	public String penaltyEmail(Model model) {
+//		log.info("penaltyEmail 연체 시 메일링");
+//		List<String> lists = service.penaltyEmail();
+//		System.out.println(lists);
+//		model.addAttribute("lists",lists);
+//		return "penaltyEmail";
+//	}
 	//	예약자 대출일 메일링      reserveEmail.do
-	@RequestMapping(value = "/reserveEmail.do" ,method=RequestMethod.GET)
-	public String reserveEmail(Model model) {
-		log.info("RentalContoller 예약자 대출일 메일링");
-		List<Rent_Dto> lists = service.reserveEmail();
-		System.out.println(lists);
-		model.addAttribute("lists",lists);
-		return "reserveEmail";
+//	@RequestMapping(value = "/reserveEmail.do" ,method=RequestMethod.GET)
+//	public String reserveEmail(Model model) {
+//		log.info("RentalContoller 예약자 대출일 메일링");
+//		List<String> lists = service.reserveEmail();
+//		System.out.println(lists);
+//		model.addAttribute("lists",lists);
+//		return "reserveEmail";
+//	}
+	
+	
+	
+	//메일 발송 테스트
+	@RequestMapping(value = "/t.do", method = RequestMethod.GET)
+	public void automail() {
+		MimeMessage message = mailSender.createMimeMessage();
+		
+		try {
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setFrom("dlrjtjd0615@gmail.com"); // 보내는 사람의 이메일
+			messageHelper.setTo("shda410@gmail.com"); // 받을 사람 이메일
+			messageHelper.setSubject("[마을도서관] 안내 메일 드립니다."); // 메일의 제목
+			messageHelper.setText("대출중인 도서의 반납일이 하루 남았습니다. " , true);
+			mailSender.send(message);
+			} catch (MessagingException e) {
+			e.printStackTrace();
+			}
+		
+		System.out.println("메세지 발송확인");
+		
 	}
 	
-//	패널티                penaltyUpdate.do --cron으로 주기적으로 업데이트
 	
 }

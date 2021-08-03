@@ -26,10 +26,10 @@ public interface IRentalDao {
 	//	패널티
 	public int penaltyUpdate(String email);
 	//	반납 예정일 메일링
-	public List<Rent_Dto> returnInfoEmail();
+	public List<String> returnInfoEmail();
 	//	연체 시 메일링
-	public List<Rent_Dto> penaltyEmail(); 
+	public List<String> penaltyEmail(); 
 	//	예약자 대출일 메일링
-	public List<Rent_Dto> reserveEmail();
+	public List<String> reserveEmail();
 	
 }
