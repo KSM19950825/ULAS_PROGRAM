@@ -18,7 +18,7 @@
 	<property name="suffix" value=".jsp"/>
 </bean>
 
-<task:annotation-driven scheduler="scheduler"/>
+<!-- <task:annotation-driven scheduler="scheduler"/>
 	<task:scheduler id="scheduler" pool-size="10"/> 
 	
 	<task:scheduled-tasks>
@@ -26,6 +26,6 @@
 		<task:scheduled ref="rentalServiceImpl" method="returnInfoEmail" cron="0/10 * * * * ?"/> 
 		<task:scheduled ref="rentalServiceImpl" method="penaltyEmail" cron="0/11 * * * * ?"/>
 		<task:scheduled ref="rentalServiceImpl" method="reserveEmail" cron="0/11 * * * * ?"/>	
-	</task:scheduled-tasks>
+	</task:scheduled-tasks> -->
 
 </beans>

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.las.khj.dto.Member_Dto;
 import com.las.khj.dto.Rent_Dto;
 import com.las.khj.dto.Reservation_Dto;
-import com.las.khj.mail.AutoMail;
 import com.las.khj.model.service.IRentalService;
 
 
@@ -53,8 +52,6 @@ public class RentalContoller {
 	
 	
 //		반납             		returnBook.do
-	//int seq => 대출현황페이지 (input hidden)
-
 	@RequestMapping(value = "/returnBook.do" ,method=RequestMethod.POST)
 	public String returnBook(@RequestParam int seq, Model model,HttpSession session) {
 		Member_Dto dto = (Member_Dto) session.getAttribute("sessionUser");
@@ -94,9 +91,6 @@ public class RentalContoller {
 		return "cancleReserve";
 		
 	}
-	
-	
-	
 	
 	
 	//	나의 예약 현황			myReservation.do
