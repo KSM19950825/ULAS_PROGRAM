@@ -1,9 +1,12 @@
 package com.las.khj.ctrl;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
@@ -17,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.las.khj.dto.BookInfo_Dto;
 import com.las.khj.dto.Member_Dto;
@@ -39,7 +44,7 @@ public class BookController {
 		sessionUser.setAuth("U");
 		sessionUser.setName("정승호");
 		session.setAttribute("sessionUser", sessionUser);
-		return "main";
+		return "main_forming";
 	}
 	
 	@RequestMapping(value = "/searchBook.do" , method = RequestMethod.GET)
@@ -78,7 +83,7 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = "/searchBookDetail.do" , method = RequestMethod.POST)
-	public String searchBookDetail(String url , Model model) {
+	public String searchBookDetail(String url , Model model, HttpServletResponse response) {
 		BookInfo_Dto bookDto = new BookInfo_Dto();
 		log.info("BookController 크롤링된 리스트 중 선택한 도서정보 : {}", bookDto);
 		String detailUrl = "https://search.daum.net/search"+url;
@@ -105,12 +110,34 @@ public class BookController {
 			log.info("도서소개 : {}", bookDto.getContent());
 			log.info("목차 : {}", bookDto.getChapter());
 			
+//			if(bookDto.getContent() == "" || bookDto.getChapter() == "") {
+//				PrintWriter out = response.getWriter();
+//				out.print("<script>chkBook();</script>");
+//			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		model.addAttribute("searchDetail", bookDto); // Dto에 담긴 크롤링된 정보를 화면에 전달
 		return "searchBookDetail";
 	}
+	
+	@RequestMapping(value = "/findPublish.do" , method = RequestMethod.GET)
+	public String findPublish() {
+		log.info("BookController 출판사 조회로 이동");
+
+		return "findPublish";
+	}
+	
+	@RequestMapping(value = "/insertPublish.do" , method = RequestMethod.POST)
+	@ResponseBody
+	public String insertPublish(Model model, String publisher) {
+		log.info("BookController 출판사 조회", publisher);
+		BookInfo_Dto publ = bookService.searchPublish(publisher);
+		model.addAttribute("publ", publ);
+		return "";
+	}
+	
+
 	
 	@RequestMapping(value = "/bookList.do" , method = RequestMethod.GET)
 	public String bookList(Model model) {
@@ -134,16 +161,27 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = "/bookDetail.do" , method = RequestMethod.GET)
-	public String bookDetailInfo(String bookcode, Model model) {
-		System.out.println(bookcode);
-		log.info("BookController 젼체리스트에서 선택된 bookcode : {}");
-		List<BookInfo_Dto> infoList=  new ArrayList<BookInfo_Dto>();
-		BookInfo_Dto infoDto = new BookInfo_Dto();
-		
-		
-		
-		
-		log.info("BookController 등록된 도서의 상세정보(같은 bookcode의 도서 리스트) : {}");
+	public String bookDetailInfo(Model model, String bookcode) {
+		log.info("BookController 전체리스트에서 선택된 bookcode : {}", bookcode);
+		BookInfo_Dto detailBook = bookService.detailInfo(bookcode);
+		log.info("BookController 등록된 도서의 상세정보 : {}", detailBook);
+		model.addAttribute("detailBook", detailBook);
+
+		return "bookDetail";
+	}
+	
+	@RequestMapping(value = "/bookModify.do" , method = RequestMethod.GET)
+	public String bookModify(Model model, String bookcode) {
+		log.info("BookController 도서수정 페이지로 이동");
+		BookInfo_Dto detailBook = bookService.detailInfo(bookcode);
+		log.info("BookController 등록된 도서의 상세정보 : {}", detailBook);
+		model.addAttribute("detailBook", detailBook);
+		return "bookModify";
+	}
+	
+	@RequestMapping(value = "/bookModifyForm.do" , method = RequestMethod.POST)
+	public String bookModifyForm() { // 정보수정(도서상태, 위치) / 도서상태 위치 바꾸는거(이건 따로 url 만들어야 하나)
+		log.info("BookController 도서정보 수정");
 		
 		return "bookDetail";
 	}

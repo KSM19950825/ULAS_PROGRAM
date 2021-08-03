@@ -31,7 +31,7 @@
 </resultMap>
 
 <!-- 출판사명으로 출판사 코드 조회 -->
-<select id="searchPublish" parameterType="java.lang.String" resultType="java.lang.String">
+<select id="searchPublish" parameterType="java.lang.String" resultType="bookInfoDto">
 	SELECT PUBLCODE 
 		FROM PUBLISH p
 		WHERE PUBLISHER = #{publisher}
@@ -77,16 +77,18 @@
 		VALUES(BOOKSTATUSSEQ.NEXTVAL, #{bookcode}, 'N', 'S001', #{loc})
 </insert>
 
+<!-- 등록된 도서 전체리스트 -->
 <select id="bookList"  resultMap="bookInfoMap">
 	SELECT b.BOOKCODE , b.TITLE , b.AUTHOR , p.PUBLISHER  
 		FROM BOOKINFO b JOIN PUBLISH p ON  b.PUBLCODE = p.PUBLCODE
 		ORDER BY BOOKCODE ASC
 </select>
 
+<!-- 등록된 도서 상세조회 -->
 <select id="detailInfo" parameterType="java.lang.String" resultMap="bookInfoMap" >
 	<![CDATA[
-SELECT b.BOOKCODE, TITLE , AUTHOR , PUBLISHER AS PUBLCODE , CLASSNAME AS CLASSCODE , PUBLISHING ,  CONTENT, QR , IMG 
-,b2.BOOKSEQ ,  
+SELECT b.BOOKCODE , TITLE , AUTHOR , PUBLISHER AS PUBLCODE , CLASSNAME AS CLASSCODE , PUBLISHING ,  CONTENT, CHAPTER, QR , IMG 
+,b2.BOOKSEQ ,  STATUS ,
   	 CASE 
       WHEN (START_DATE+7 - SYSDATE)>0 AND STATUS = '정상' THEN '대출중' 
       WHEN (START_DATE+7 - SYSDATE)<0 AND STATUS = '정상' THEN '대출중(연체)'

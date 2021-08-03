@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@include file="./header.jsp"%>
+<%@include file="/header.jsp"%>
 
 
 
@@ -14,7 +14,7 @@
 			<div class="list_start">
 				<div class="list_pair">
 					<div class="list_detail">
-						<a class="service01" href=""><span>도서목록</span></a>
+						<a class="service01" href="./bookList.do"><span>도서목록</span></a>
 					</div>
 					<div class="list_detail">
 						<a class="service02" href=""><span>대출기록</span></a>
@@ -58,4 +58,4 @@
 
 
 
-<%@include file="./footer.jsp"%>
+<%@include file="/footer.jsp"%>

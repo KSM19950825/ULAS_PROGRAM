@@ -19,6 +19,7 @@ public class BookInfo_Dto implements Serializable{
 	private String chapter;
 	private int cnt;
 	private String loc;
+	private String status;
 	
 	private List<BookStatus_Dto> bookstatus;
 	
@@ -122,6 +123,14 @@ public class BookInfo_Dto implements Serializable{
 		this.loc = loc;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public List<BookStatus_Dto> getBookstatus() {
 		return bookstatus;
 	}
@@ -150,9 +159,9 @@ public class BookInfo_Dto implements Serializable{
 	public String toString() {
 		return "BookInfo_Dto [bookcode=" + bookcode + ", title=" + title + ", author=" + author + ", publcode="
 				+ publcode + ", classcode=" + classcode + ", publishing=" + publishing + ", content=" + content
-				+ ", qr=" + qr + ", img=" + img + ", chapter=" + chapter + ", cnt=" + cnt + ", loc=" + loc
-				+ ", bookstatus=" + bookstatus + ", publish=" + publish + ", genre=" + genre + "]";
+				+ ", qr=" + qr + ", img=" + img + ", chapter=" + chapter + ", cnt=" + cnt + ", loc=" + loc + ", status="
+				+ status + ", bookstatus=" + bookstatus + ", publish=" + publish + ", genre=" + genre + "]";
 	}
-	
+
 	
 }
