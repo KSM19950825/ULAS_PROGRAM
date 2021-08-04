@@ -31,9 +31,7 @@ li{
 			<li>장르 : ${detailBook.classcode}</li>
 			<li>위치 : ${detailBook.loc}</li>
 		</ul>
-		<span>
-			<input  type="button" value="대출/예약">
-		</span>
+		
 	</div>
 </div>
 <div>
@@ -56,6 +54,8 @@ li{
 			<th>대출상태</th>
 			<th>도서상태</th>
 			<th>위치</th>
+			<th>대출</th>
+			<th>예약</th>
 		</tr>
 		<c:forEach var="bookStatusList" items="${detailBook.bookstatus}" varStatus="vs">
 		<tr>
@@ -65,6 +65,19 @@ li{
 			<td>${bookStatusList.statuscode}</td>
 			<td>${detailBook.status}</td>
 			<td>${bookStatusList.loc}</td>
+			<td>
+			<form action="./rentBook.do" method="post" >
+			<input type="hidden" name="bookseq" id="bookseq" value="${detailBook.title}">
+			<input type="submit" value="대출">
+			</form>
+			</td>
+			<td>
+			<form action="./reserveBook.do" method="post" >
+			<input type="hidden" name="bookseq" id="booseq" value="${detailBook.title}">
+			<input type="submit" value="예약신청">
+	</form>
+			</td>
+	
 		</tr>
 		</c:forEach>
 		<tr>

@@ -61,7 +61,7 @@ public class RentalContoller {
 		map.put("email",email);
 		map.put("seq", seq);
 		service.returnBook(map);
-		return "returnBook";
+		return "redirect:myRent.do";
 		
 	}
 	
@@ -81,13 +81,12 @@ public class RentalContoller {
 		return "reserveBook";
 	}
 	// 예약 취소 tx           cancleReserve.do
-
 	@RequestMapping(value = "cancleReserve.do", method = RequestMethod.POST)
 	public String cancleReserve(@RequestParam int seq ,Model model) {
 		log.info("cancleReserve 예약 취소");
 		
 		service.cancleReserve(seq);
-		return "cancleReserve";
+		return "redirect:myReservation.do";
 		
 	}
 	
