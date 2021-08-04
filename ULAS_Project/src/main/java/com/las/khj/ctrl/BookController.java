@@ -44,7 +44,7 @@ public class BookController {
 		sessionUser.setAuth("U");
 		sessionUser.setName("정승호");
 		session.setAttribute("sessionUser", sessionUser);
-		return "main_forming";
+		return "index";
 	}
 	
 	@RequestMapping(value = "/searchBook.do" , method = RequestMethod.GET)
