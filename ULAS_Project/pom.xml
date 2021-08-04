@@ -189,14 +189,14 @@
          <artifactId>mail</artifactId>
          <version>1.4.7</version>
       </dependency>
-      
+
       <!-- jsoup Crawling -->
       <dependency>
           <groupId>org.jsoup</groupId>
           <artifactId>jsoup</artifactId>
           <version>1.13.1</version>
       </dependency>
-      
+
       <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
       <dependency>
          <groupId>org.springframework</groupId>
@@ -209,7 +209,7 @@
          <version>3.8.1</version>
          <scope>test</scope>
       </dependency>
-      
+
       <!-- 이메일 인증 및 발송 관련 라이브러리 -->
       <dependency>
          <groupId>javax.mail</groupId>
@@ -221,7 +221,7 @@
             <artifactId>spring-context-support</artifactId>
             <version>4.3.30.RELEASE</version>
          </dependency>
-      
+
    </dependencies>
    <build>
       <finalName>ULAS_Project</finalName>
