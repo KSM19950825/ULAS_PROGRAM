@@ -16,7 +16,6 @@
 		
 		var frm = document.forms[0];
 		frm.action = "./login.do";
-		console.log(frm);
 		
 		if(email.value == "" || email.value.trim() == "") {
 			alert("아이디를 입력 해 주세요");

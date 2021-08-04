@@ -42,11 +42,9 @@ public class UserController {
 	@ResponseBody
 	public Map<String, String> loginCheckMap(@RequestParam Map<String, Object> map) {
 		Map<String, String> temp = new HashMap<String, String>();
-		System.out.println(map);
-		logger.info("Member_Controller -> loginCheckMap {}", temp.get("email"));
-		logger.info("Member_Controller -> loginCheckMap {}", temp.get("password"));
+		logger.info("UserController  loginCheckMap {}", temp.get("email"));
 		Member_Dto uDto = userService.login(map);
-		logger.info("Member_Controller -> loginCheckMap login : {}", uDto);
+		logger.info("UserController -> loginCheckMap login : {}", uDto);
 		if(uDto == null) {
 			temp.put("isc", "실패");
 		} else {
@@ -57,11 +55,10 @@ public class UserController {
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(@RequestParam Map<String, Object> map, HttpSession session) {
-		logger.info("Member_Controller -> loginCheckMap {}", map.get("email"));
-		logger.info("Member_Controller -> loginCheckMap {}", map.get("password"));
+		logger.info("UserController 로그인 {}", map.get("email"));
 		Member_Dto uDto = userService.login(map);
 		session.setAttribute("uDto", uDto);
-		return "main";
+		return "index";
 	}
 	
 	@RequestMapping(value = "/registForm.do", method = RequestMethod.GET)
@@ -95,11 +92,10 @@ public class UserController {
 			num += ranNum2;
 		}
 		tmp.put("otp", num);
-		System.out.println("//////////////////////////"+tmp);
 		boolean isc = userService.insertOtp(tmp);
 		
 		if(isc) {
-            String setfrom = "rkdtjdals20@gmail.com";
+            String setfrom = "dlrjtjd0615@gmail.com";
             String tomail = (String) tmp.get("email"); // 받는 사람 이메일
             String title = "회원가입 인증 이메일 입니다."; // 제목
             String content =
@@ -142,5 +138,64 @@ public class UserController {
 		}
 		
 		return temp;
+	}
+	
+	@RequestMapping(value = "/otpCheck.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> otpCheck(@RequestParam Map<String, Object> map) {
+		Map<String, String> temp = new HashMap<String, String>();
+		String otp = userService.inquireOtp(map);
+		logger.info("UserController otpCheck login : {}", otp);
+		if(otp == null) {
+			temp.put("isc", "실패");
+		} else {
+			temp.put("isc", "성공");
+			userService.deleteOtp(otp);
+		}
+		return temp;
+	}
+	
+	@RequestMapping(value = "/emailCheck.do", method = RequestMethod.POST)
+	public String emailCheck(@RequestParam Map<String, Object> map, HttpSession session) {
+		logger.info("UserController emailCheck {}", map.get("email"));
+		session.setAttribute("rEmail", map.get("email"));
+		return "regist";
+	}
+	
+	@RequestMapping(value = "/regist.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> regist(@RequestParam Map<String, Object> map, HttpSession session) {
+		Map<String, String> temp = new HashMap<String, String>();
+		logger.info("UserController emailCheck {}", map.get("email"));
+		logger.info("UserController emailCheck {}", map.get("name"));
+		logger.info("UserController emailCheck {}", map.get("address"));
+		logger.info("UserController emailCheck {}", map.get("phone"));
+		
+		Member_Dto mDto = new Member_Dto();
+		mDto.setEmail((String)map.get("email"));
+		mDto.setPassword((String)map.get("password"));
+		mDto.setName((String)map.get("name"));
+		mDto.setAddress((String)map.get("address"));
+		mDto.setPhone((String)map.get("phone"));
+		
+		boolean isc = userService.regist(mDto);
+		if(isc) {
+			temp.put("isc", "성공");
+			session.invalidate();
+		} else {
+			temp.put("isc", "실패");
+		}
+		
+		return temp;
+	}
+	
+	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		logger.info("Member_Controller -> logout");
+		Object obj = session.getAttribute("uDto");
+		if(obj != null) {
+			session.removeAttribute("uDto");
+		}
+		return "index";
 	}
 }

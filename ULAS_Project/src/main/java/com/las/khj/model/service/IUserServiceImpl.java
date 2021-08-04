@@ -59,11 +59,17 @@ public class IUserServiceImpl implements IUserService {
 		logger.info("IUserServiceImpl 일회용번호대조 : {}", map);
 		return iDao.inquireOtp(map);
 	}
+	
+	@Override
+	public boolean deleteOtp(String email) {
+		logger.info("IUserServiceImpl 일회용번호삭제 : {}", email);
+		return iDao.deleteOtp(email);
+	}
 
 	@Override
 	public boolean modifyPw(Map<String, Object> map) {
 		logger.info("IUserServiceImpl 비밀번호변경 : {}", map);
 		return iDao.modifyPw(map);
 	}
-
+	
 }

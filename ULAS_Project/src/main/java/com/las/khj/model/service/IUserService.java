@@ -38,6 +38,10 @@ public interface IUserService {
 	 */
 	public String inquireOtp(Map<String, Object> map);
 	/*
+	 * 인증번호 삭제 LAS-U-007
+	 */
+	public boolean deleteOtp(String email);
+	/*
 	 * 비밀번호 변경 LAS-U-007
 	 */
 	public boolean modifyPw(Map<String, Object> map);
