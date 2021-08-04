@@ -1,8 +1,10 @@
 package com.las.khj.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.las.khj.dto.Member_Dto;
+import com.las.khj.dto.Search_Dto;
 
 public interface IUserDao {
 	/*
@@ -14,9 +16,9 @@ public interface IUserDao {
 	 */
 	public boolean regist(Member_Dto dto);
 	/*
-	 * 대출 회원 조회 LAS-U-003
+	 * 도서 정보 검색 LAS-S-001
 	 */
-	
+	public List<Search_Dto> searchBook(Map<String, Object> map);
 	/*
 	 * 내 정보 수정 LAS-U-005
 	 */

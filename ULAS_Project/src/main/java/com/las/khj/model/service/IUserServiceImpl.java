@@ -1,5 +1,6 @@
 package com.las.khj.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.las.khj.dto.Member_Dto;
+import com.las.khj.dto.Search_Dto;
 import com.las.khj.model.dao.IUserDao;
 
 @Service
@@ -70,6 +72,12 @@ public class IUserServiceImpl implements IUserService {
 	public boolean modifyPw(Map<String, Object> map) {
 		logger.info("IUserServiceImpl 비밀번호변경 : {}", map);
 		return iDao.modifyPw(map);
+	}
+
+	@Override
+	public List<Search_Dto> searchBook(Map<String, Object> map) {
+		logger.info("IUserServiceImpl 도서검색 : {}", map);
+		return iDao.searchBook(map);
 	}
 	
 }

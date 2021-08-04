@@ -1,6 +1,7 @@
 package com.las.khj.ctrl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -14,12 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.las.khj.dto.Member_Dto;
+import com.las.khj.dto.Search_Dto;
 import com.las.khj.model.service.IUserService;
 
 @Controller
@@ -191,11 +194,29 @@ public class UserController {
 	
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
-		logger.info("Member_Controller -> logout");
+		logger.info("UserController  로그아웃");
 		Object obj = session.getAttribute("uDto");
 		if(obj != null) {
 			session.removeAttribute("uDto");
 		}
 		return "index";
+	}
+	
+	@RequestMapping(value = "/findBookForm.do", method = RequestMethod.GET)
+	public String findBookForm() {
+		logger.info("UserController 상세검색이동");
+		return "findBook";
+	}
+	
+	@RequestMapping(value = "/findBook.do", method = RequestMethod.GET)
+	public String findBook(@RequestParam Map<String, Object> map, Model model) {
+		logger.info("UserController 상세검색");
+		map.put("title", "%"+map.get("title")+"%");
+		map.put("author", "%"+map.get("author")+"%");
+		map.put("classname", "%"+map.get("classname")+"%");
+		map.put("publisher", "%"+map.get("publisher")+"%");
+		List<Search_Dto> listBook = userService.searchBook(map);
+		model.addAttribute("listBook", listBook);
+		return "resultBook";
 	}
 }

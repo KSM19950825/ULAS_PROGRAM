@@ -1,5 +1,6 @@
 package com.las.khj.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.las.khj.dto.Member_Dto;
+import com.las.khj.dto.Search_Dto;
 
 @Repository
 public class IUserDaoImpl implements IUserDao {
@@ -64,6 +66,11 @@ private final String NS = "com.las.khj.model.dao.IUserDao.";
 	public boolean modifyPw(Map<String, Object> map) {
 		int n = sqlSession.update(NS+"modifyPw", map);
 		return (n>0)?true:false;
+	}
+
+	@Override
+	public List<Search_Dto> searchBook(Map<String, Object> map) {
+		return sqlSession.selectList(NS + "searchBook", map);
 	}
 
 }

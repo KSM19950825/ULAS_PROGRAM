@@ -53,29 +53,26 @@
         	WHERE EMAIL = #{email}
 	</update>
 	<!-- 도서 정보 검색 LAS-S-001 -->
-<!-- 	<select id="searchBook" parameterType="java.util.Map" resultType="s"> -->
-<!-- 		SELECT BOOKCODE, TITLE, AUTHOR, PUBLISHER, CLASSNAME, IMG  -->
-<!-- 			FROM BOOKINFO b -->
-<!-- 			JOIN PUBLISH p  -->
-<!-- 			ON b.PUBLCODE = p.PUBLCODE -->
-<!-- 			JOIN CLASS c  -->
-<!-- 			ON b.CLASSCODE = c.CLASSCODE -->
-<!-- 			<where> -->
-<!-- 				<if test="title != null"> -->
-<!-- 					AND TITLE LIKE #{title} -->
-<!-- 				</if> -->
-<!-- 				<if test="author != null"> -->
-<!-- 					AND AUTHOR LIKE #{author} -->
-<!-- 				</if> -->
-<!-- 				<if test="publisher != null"> -->
-<!-- 					AND PUBLISHER LIKE #{publisher} -->
-<!-- 				</if> -->
-<!-- 				<if test="classname != null"> -->
-<!-- 					AND CLASSNAME LIKE #{classname} -->
-<!-- 				</if> -->
-<!-- 				<if test="bookcode != null"> -->
-<!-- 					AND BOOKCODE = #{bookcode} -->
-<!-- 				</if> -->
-<!-- 			</where> -->
-<!-- 	</select> -->
+	<select id="searchBook" parameterType="java.util.Map" resultType="searchDto">
+		SELECT BOOKCODE, TITLE, AUTHOR, PUBLISHER, CLASSNAME 
+			FROM BOOKINFO b
+			JOIN PUBLISH p 
+			ON b.PUBLCODE = p.PUBLCODE
+			JOIN CLASS c 
+			ON b.CLASSCODE = c.CLASSCODE
+			<where>
+				<if test="title != '%null%'">
+					AND TITLE LIKE #{title}
+				</if>
+				<if test="author != '%null%'">
+					AND AUTHOR LIKE #{author}
+				</if>
+				<if test="publisher != '%null%'">
+					AND PUBLISHER LIKE #{publisher}
+				</if>
+				<if test="classname != '%null%'">
+					AND CLASSNAME LIKE #{classname}
+				</if>
+			</where>
+	</select>
 </mapper>
