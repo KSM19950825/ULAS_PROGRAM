@@ -76,10 +76,11 @@
 
 <!-- 반납 예정일 메일링  String-->
 	<select id="returnInfoEmail" resultType="java.lang.String"> 
-		SELECT EMAIL
-		FROM RENT
-		WHERE (START_DATE+7)-SYSDATE=1
-	</select>
+	<![CDATA[SELECT EMAIL 
+			FROM RENT
+			WHERE 0<(START_DATE+7)-SYSDATE 
+			AND (START_DATE+7)-SYSDATE<=1]]>
+		</select>
 
 <!-- 연체 시 메일링 -->
 	<select id="penaltyEmail" resultType="java.lang.String">

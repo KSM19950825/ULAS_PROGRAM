@@ -23,10 +23,11 @@ public interface IRentalService {
 	//	패널티
 	public int penaltyUpdate(String email);
 	//	반납 예정일 메일링
-	public List<Rent_Dto> returnInfoEmail();
+	public void returnInfoEmail();
+//	public List<Rent_Dto> returnInfoEmail();
 	//	연체 시 메일링
-	public List<Rent_Dto> penaltyEmail(); 
+	public void penaltyEmail(); 
 	//	예약자 대출일 메일링
-	public List<Rent_Dto> reserveEmail();
+	public void reserveEmail();
 
 }
