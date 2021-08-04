@@ -11,6 +11,9 @@ public class BookStatus_Dto implements Serializable{
 	private String reserve;
 	private String statuscode;
 	private String loc;
+	private String title;
+	private String status;
+	
 	public int getBookseq() {
 		return bookseq;
 	}
@@ -41,9 +44,16 @@ public class BookStatus_Dto implements Serializable{
 	public void setLoc(String loc) {
 		this.loc = loc;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	@Override
 	public String toString() {
 		return "BookStatus_Dto [bookseq=" + bookseq + ", bookcode=" + bookcode + ", reserve=" + reserve
-				+ ", statuscode=" + statuscode + ", loc=" + loc + "]";
+				+ ", statuscode=" + statuscode + ", loc=" + loc + ", title=" + title + "]";
 	}
 }

@@ -13,18 +13,33 @@ li{
 </style>
 <script type="text/javascript">
 
+function findPublishs() {
+// 	var publ = document.getElementById("chkPubl").value;
+// 	console.log(publ);
+	var url = "./findPublish.do"
+	var title = "출판사 조회";
+	var prop = "top=200px, left=400px,  width=450px, height=250px, scrollbars=no, resizeable=no";
+	window.open(url, title, prop);
+}
+
 // var chkLoc = 'n';
 
 	function modifyValue() {
+		var chapter = document.getElementById("chapter");
+		var chap = document.getElementById("chp");
+		var chapterConvert = chapter.value.replaceAll('\n','<br>');
+// 		chap.innerHTML = chapterConvert;
 		var loc = document.getElementById("loc");
 		console.log(loc.value);
 		if(loc.value == "") {
 			alert('위치를 입력해주세요');
 			return false;
 		}
+		chapter.value = chapterConvert;
+		
+		
 // 		else if(chkLoc == "n"){
 // 			alert('위치를 중복검사를 해주세요');
-// 			return false;
 // 		}
 	}
 	
@@ -51,7 +66,11 @@ li{
 				<li><input type="hidden" name="bookcode" value="${searchDetail.bookcode}"></li>
 				<li>도서명 : <input type="text" name="title" value="${searchDetail.title}"></li>
 				<li>저자 : <input type="text" name="author" value="${searchDetail.author}"></li>
-				<li>출판사 : <input type="text" name="publcode" value="${searchDetail.publcode}"></li>
+				<li>
+					출판사 : <input type="text" name="publcode" id="publcode" value="${searchDetail.publcode}">
+<!-- 					<input  type="button" value="출판사 조회" onclick="javascript:location.href='./findPublish.do'"> -->
+					<input type="button" value="출판사 조회" id="chkPubl" onclick="findPublishs()">
+				</li>
 				<li>발행일 : <input type="text" name="publishing" value="${searchDetail.publishing}"></li>
 				<li>장르 : 
 					<select name="classcode"> 
@@ -74,11 +93,12 @@ li{
 				
 				<li><br>
 					책소개<br>
-					<textarea name="content" rows="10" cols="50">${searchDetail.content}</textarea>
+					<textarea name="content" rows="10" cols="50" id="content">${searchDetail.content}</textarea>
 				</li>
 				<li>
 					목차<br>
-					<textarea name="chapter" rows="10" cols="100">${searchDetail.chapter}</textarea>
+					<textarea name="chapter" rows="10" cols="100" id="chapter">${searchDetail.chapter}</textarea>
+<!-- 					<input type="button" value="확인" onclick="chap()"> -->
 				</li>
 			</ul>
 		</div>
@@ -86,7 +106,9 @@ li{
 			<input type="number" name="cnt" min="1" max="4" value="1">
 			<input type="submit" value="저장">
 		</div>
+		
 	</div>
 </form>
+<div id="chp"></div>
 </body>
 </html>
