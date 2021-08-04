@@ -51,7 +51,7 @@ li{
 	<table>
 		<tr>
 			<th>NO.</th>
-			<th>BookCode</th>
+			<th>BookSeq</th>
 			<th>도서명</th>
 			<th>대출상태</th>
 			<th>도서상태</th>
@@ -60,7 +60,7 @@ li{
 		<c:forEach var="bookStatusList" items="${detailBook.bookstatus}" varStatus="vs">
 		<tr>
 			<td>${vs.count}</td>
-			<td>${bookStatusList.bookcode}</td>
+			<td>${bookStatusList.bookseq}</td>
 			<td>${detailBook.title}</td>
 			<td>${bookStatusList.statuscode}</td>
 			<td>${detailBook.status}</td>
