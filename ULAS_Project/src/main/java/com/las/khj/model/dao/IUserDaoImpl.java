@@ -53,6 +53,12 @@ private final String NS = "com.las.khj.model.dao.IUserDao.";
 	public String inquireOtp(Map<String, Object> map) {
 		return sqlSession.selectOne(NS + "inquireOtp", map);
 	}
+	
+	@Override
+	public boolean deleteOtp(String email) {
+		int n = sqlSession.delete(NS+"deleteOtp", email);
+		return (n>0)?true:false;
+	}
 
 	@Override
 	public boolean modifyPw(Map<String, Object> map) {

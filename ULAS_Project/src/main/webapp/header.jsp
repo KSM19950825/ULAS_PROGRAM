@@ -28,9 +28,9 @@
 			</div>
 			<div class="headerinfo">
 				<ul>
-					<li class="btn-home"><a  href="#/">홈</a></li>
-					<li><a id="goto-login" class="ulas-log" href="">로그인</a></li>
-					<li><a href="">회원가입</a></li>
+					<li class="btn-home"><a  href="#">홈</a></li>
+					<li><a id="goto-login" class="ulas-log" href="./loginForm.do">로그인</a></li>
+					<li><a href="./registForm.do">회원가입</a></li>
 				</ul>
 			</div>
 		</div>

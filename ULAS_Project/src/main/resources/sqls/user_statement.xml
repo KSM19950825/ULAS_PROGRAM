@@ -42,6 +42,11 @@
 	        FROM OTP
 	        WHERE EMAIL = #{email} AND OTP = #{otp}
 	</select>
+	<!-- 인증번호 삭제 LAS-U-007 -->
+	<delete id="deleteOtp" parameterType="java.lang.String">
+		DELETE FROM OTP
+       		WHERE EMAIL = #{email}
+	</delete>
 	<!-- 비밀번호 변경 LAS-U-007 -->
 	<update id="modifyPw" parameterType="java.util.Map">
 		UPDATE LASMEMBER SET PASSWORD = #{password}
