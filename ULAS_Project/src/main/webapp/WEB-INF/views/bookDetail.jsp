@@ -67,13 +67,13 @@ li{
 			<td>${bookStatusList.loc}</td>
 			<td>
 			<form action="./rentBook.do" method="post" >
-			<input type="hidden" name="bookseq" id="bookseq" value="${detailBook.title}">
+			<input type="hidden" name="bookseq" id="bookseq" value="${bookStatusList.bookseq}">
 			<input type="submit" value="대출">
 			</form>
 			</td>
 			<td>
 			<form action="./reserveBook.do" method="post" >
-			<input type="hidden" name="bookseq" id="booseq" value="${detailBook.title}">
+			<input type="hidden" name="bookseq" id="booseq" value="${bookStatusList.bookseq}">
 			<input type="submit" value="예약신청">
 	</form>
 			</td>

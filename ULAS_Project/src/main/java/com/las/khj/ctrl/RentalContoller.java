@@ -47,7 +47,7 @@ public class RentalContoller {
 		map.put("email",email);
 		map.put("bookseq", bookseq);
 		service.rentBook(map);
-		return "rentBook";
+		return "redirect:myRent.do";
 	}
 	
 	
@@ -78,7 +78,7 @@ public class RentalContoller {
 		map.put("email", email);
 		map.put("bookseq", bookseq);
 		service.reserveBook(map);
-		return "reserveBook";
+		return "redirect:myReservation.do";
 	}
 	// 예약 취소 tx           cancleReserve.do
 	@RequestMapping(value = "cancleReserve.do", method = RequestMethod.POST)
