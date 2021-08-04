@@ -10,6 +10,7 @@
 <script type="text/javascript">
 function chkPubl() {
 	var publ = document.getElementById("publisher").value;
+	var con = document.getElementById("condition");
 	console.log(publ);
 	$.ajax({
 		url : "./searchPublish.do", // Controller에서 이 주소를 가지는  메소드에서 검색 결과 출력하기
@@ -19,7 +20,10 @@ function chkPubl() {
 		dataType : "JSON",
 		async : true,
 		succeess : function () {
-			
+			var bookPubl = ${publ}
+			if(bookPubl) {
+				
+			}
 		},
 		error : function () {
 			alert("잘못된 요청입니다.");
@@ -38,7 +42,7 @@ function chkPubl() {
 <div>
 	<form id ="frm" method="post" onsubmit="chkPubl()">
 		<input type="text" name="publisher" id="publisher">
-		<span id="msg"></span>
+		<span id="condition"></span>
 		<input type="button" value="조회">
 	</form>
 </div>
