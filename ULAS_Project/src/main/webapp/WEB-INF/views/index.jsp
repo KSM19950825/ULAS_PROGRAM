@@ -37,8 +37,8 @@
 		<div class="searchBarWrap"   >
 			<hr>
 			<div class="searchBar"  >
-				<form class="d-flex">
-					<input class="form-control me-2" type="search" placeholder="검색할 도서정보를 입력해주세요"
+				<form class="d-flex" action="./findBook.do" method="get">
+					<input class="form-control me-2" name="title" type="search" placeholder="검색할 도서정보를 입력해주세요"
 						aria-label="Search">
 					<button class="searchBtn btn btn-outline-success" type="submit">검색</button>
 				</form>

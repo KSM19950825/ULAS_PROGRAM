@@ -48,17 +48,16 @@
 </script>
 </head>
 <body>
-<div id="container">
-	<div id="title">Total Spring</div>
+<div>
 	<form method="post">
-		<div class="inputWord">아이디</div>
+		<div>아이디</div>
 		<input type="text" name="email" id="inputId" placeholder="아이디 입력"><br>
-		<div class="inputWord">비밀번호</div>
+		<div>비밀번호</div>
 		<input type="password" name="password" id="inputPw" placeholder="비밀번호 입력" onkeyup="enterKey()"><br>
-		<div style="text-align: center;">
+		<div>
 			<input type="button" id="login" name="login" value="LOGIN" onclick="loginCheck()">
 		</div>
-		<div id="bottom">
+		<div>
 			<input type="button" id="registForm" value="회원가입">
 			<input type="button" value="아이디찾기">
 			<input type="button" value="비밀번호찾기">

@@ -9,6 +9,7 @@
 	<typeAlias type="com.las.khj.dto.Otp_Dto"  alias="otpDto"/>
 	<typeAlias type="com.las.khj.dto.Rent_Dto"  alias="rentDto"/>
 	<typeAlias type="com.las.khj.dto.Reservation_Dto"  alias="reservationDto"/>
+	<typeAlias type="com.las.khj.dto.Search_Dto"  alias="searchDto"/>
 </typeAliases>
 
 <mappers>

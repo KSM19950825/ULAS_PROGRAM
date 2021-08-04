@@ -55,7 +55,7 @@
 							<a class="nav-link active" aria-current="page" href="./main.do">Home</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">도서 상세 검색</a>
+							<a class="nav-link" href="./findBookForm.do">도서 상세 검색</a>
 						</li>
 						<li class="nav-item">
 						<a class="nav-link" href="./searchBook.do">도서 등록</a>
