@@ -17,12 +17,12 @@
 						<a class="service01" href="./bookList.do"><span>도서목록</span></a>
 					</div>
 					<div class="list_detail">
-						<a class="service02" href=""><span>대출기록</span></a>
+						<a class="service02" href="./myRent.do"><span>대출기록</span></a>
 					</div>
 				</div>
 				<div class="list_pair">
 					<div  class="list_detail">
-						<a class="service03" href=""><span>예약현황</span></a>
+						<a class="service03" href="./myReservation.do"><span>예약현황</span></a>
 					</div>
 					<div class="list_detail">
 						<a class="service04" href=""><span>도서신청</span></a>
@@ -32,7 +32,6 @@
 			
 		</div>
 
-	
 
 
 		<div class="searchBarWrap"   >
