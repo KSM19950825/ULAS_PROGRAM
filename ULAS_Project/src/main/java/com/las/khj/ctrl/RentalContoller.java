@@ -68,8 +68,7 @@ public class RentalContoller {
 	
 	
 	//	예약 신청 tx           reserveBook.do  HttpSession session 로긴 기능 연결 후 수정
-//	String email = session.getAttribute("email"); //실제화면session에서 email가져오기
-//	int bookseq =  input hidden처리 된 bookseq 값 가져오기
+
 	@RequestMapping(value = "/reserveBook.do", method = RequestMethod.POST)
 	public String reserveBook(@RequestParam int bookseq ,Model model) {
 		log.info("reserveBook 예약 신청");
@@ -82,7 +81,7 @@ public class RentalContoller {
 		return "reserveBook";
 	}
 	// 예약 취소 tx           cancleReserve.do
-	// input hidden 으로 reservation테이블의 seq를 가져와서 check해야함
+
 	@RequestMapping(value = "cancleReserve.do", method = RequestMethod.POST)
 	public String cancleReserve(@RequestParam int seq ,Model model) {
 		log.info("cancleReserve 예약 취소");
