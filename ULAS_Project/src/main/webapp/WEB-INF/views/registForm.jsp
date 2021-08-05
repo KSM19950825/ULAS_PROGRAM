@@ -19,8 +19,6 @@
 function emailCheck() {
 	var email = document.getElementById("email");
 	
-	console.log(email.value);
-	
 	if(email.value == "" || email.value.trim() == "") {
 		alert("이메일을 입력 해 주세요");
 		email.value="";
@@ -31,9 +29,7 @@ function emailCheck() {
 			url:"./otpMake.do",
 			data:"email="+email.value,
 			success:function(msg){
-				console.log(msg.isc);
 				if(msg.isc == "성공") {
-					console.log(msg.isc);
 					alert("입력한 이메일로 메일을 발송했습니다 이메일을 확인 해주세요.");
 				} else {
 					alert("가입된 이메일입니다.");
@@ -49,11 +45,8 @@ function otpCheck() {
 	var email = document.getElementById("email");
 	var otp = document.getElementById("otp");
 	
-	console.log(email.value, otp.value);
-	
 	var frm = document.forms[0];
 	frm.action = "./emailCheck.do";
-	console.log(frm);
 	
 	if(email.value == "" || email.value.trim() == "") {
 		alert("이메일을 입력 해 주세요");
@@ -69,9 +62,7 @@ function otpCheck() {
 			url:"./otpCheck.do",
 			data:"email="+email.value+"&otp="+otp.value,
 			success:function(msg){
-				console.log(msg.isc);
 				if(msg.isc == "성공") {
-					console.log(msg.isc);
 					frm.submit();
 				} else {
 					alert("인증번호를 확인하십시오.");
