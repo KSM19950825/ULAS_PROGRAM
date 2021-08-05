@@ -56,8 +56,6 @@
 		<input type="password" name="password" id="inputPw" placeholder="비밀번호 입력" onkeyup="enterKey()"><br>
 		<div>
 			<input type="button" id="login" name="login" value="LOGIN" onclick="loginCheck()">
-		</div>
-		<div>
 			<input type="button" id="registForm" value="회원가입">
 			<input type="button" value="아이디찾기">
 			<input type="button" value="비밀번호찾기">
